@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <title>Don8: BlockChain Donation</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/index.html">Doon8</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/funds.html">Funds</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/post.html">Add Fund</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/help.html">Help</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <br>
+      <div class="container">
+        <h1>Funds</h1>
+      </div>
+      <hr>
+
+
+      <br>
+      <div class="container">
+          <h1 id="public-key-prompt"></h1>
+      </div>
+
+      <div class="container" id="funds">
+      </div>
+
+
+      <script type="text/javascript">
+        $.getJSON("funds.txt", function(json) {
+          for (let i = 0; i < json.length; i++) {
+           var obj = JSON.parse(json[i].data);
+           var full = JSON.parse(json[i].timestamp)
+
+           var date = new Date(full)
+           var fomattedDate = date.getDate()+
+          "/"+(date.getMonth()+1)+
+          "/"+date.getFullYear()+
+          " "+date.getHours()+
+          ":"+date.getMinutes()+
+          ":"+date.getSeconds()
+
+            $("#funds").append(
+              '<div class="card" style="width: 18rem; float: left; margin: 10px;">'+
+                '<div class="card-body">'+
+                  '<h5 class="card-title">'+obj.title+'</h5>'+
+                  '<p class="card-text" style="font-size: 10px">'+fomattedDate+'</p>'+
+                  '<h6 class="card-subtitle mb-2 text-muted"  style="font-size: 12px;">'+obj.wallet+'</h6>'+
+                  '<p class="card-text">'+obj.description+'</p>'+
+                '</div>'+
+              '</div>'
+            )
+          }
+        });
+      </script>
+  </body>
+</html>
